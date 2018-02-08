@@ -13,7 +13,7 @@
 - Each DAC channel has **DMA**(Direct Memory Access) capability which can be controlled by the trigger signal.
 
 **A simplified block diagram of one DAC channel**
-![](https://i.imgur.com/evgewmD.png)
+![dac-diagram](https://i.imgur.com/evgewmD.png)
 
 - Each channel has separate control logic which is configured through a single control register (CR).
 - Data to be converted by channel x are written to data holding register (DHRx)

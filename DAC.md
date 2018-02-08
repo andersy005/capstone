@@ -8,10 +8,9 @@
 - The conversions can be done independently or simultaneously.
 - Simultaneous mode can be used where two independent but synchronized signals must be generated. for e.g.the left and right channels of stereo audio.
 - It is often important that the analog output is updated at precise instants, sometimes controlled by external hardware-thus the conversion process can be triggered by timers or external signals.
-- A common use for DAC hardware is to **generate a time varying signal**. 
+- A common use for DAC hardware is to **generate a time varying signal**.
 - Where the sample rate is high, it is impractical to control the conversion process entirely through **application software** or even **interrupt handlers**.
 - Each DAC channel has **DMA**(Direct Memory Access) capability which can be controlled by the trigger signal.
-
 
 **A simplified block diagram of one DAC channel**
 ![](https://i.imgur.com/evgewmD.png)
@@ -23,7 +22,7 @@
 
 $$DACoutput = V_{REF+} \times \frac{DOR}{4095}$$
 
-- Trigger events can include the trigger signals from 
+- Trigger events can include the trigger signals from
   - various timers:
     - TIM2
     - TIM7
@@ -33,9 +32,7 @@ $$DACoutput = V_{REF+} \times \frac{DOR}{4095}$$
 
 - It is also possible to configure the DAC without a trigger in which case $DHR_x$ is automatically copied to the $DOR_x$ after a single clock cycle delay.
 
-
-
 **Example**
 
 Write a program to generate a sine wave with minimum and maximum
-values of 512 and 1536 where a full cycle consists of 100 samples. 
+values of 512 and 1536 where a full cycle consists of 100 samples.

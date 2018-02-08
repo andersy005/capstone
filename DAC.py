@@ -1,6 +1,7 @@
-import pyb 
-from pyb import DAC 
-import math 
+import pyb
+from pyb import DAC
+import math
+from array import array
 
 
 # Configure and Initialize Pin 'PA4' as analog

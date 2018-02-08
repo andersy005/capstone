@@ -22,3 +22,20 @@
 - The DAC output voltage is linear between $0$ and $V_{REF+}$ ($3.3$ V on the discovery board) and is defined by the following equation:
 
 $$DACoutput = V_{REF+} \times \frac{DOR}{4095}$$
+
+- Trigger events can include the trigger signals from 
+  - various timers:
+    - TIM2
+    - TIM7
+    - TIM15
+  - an external interrupt (EXTI)
+  - and software
+
+- It is also possible to configure the DAC without a trigger in which case $DHR_x$ is automatically copied to the $DOR_x$ after a single clock cycle delay.
+
+
+
+**Example**
+
+Write a program to generate a sine wave with minimum and maximum
+values of 512 and 1536 where a full cycle consists of 100 samples. 

@@ -45,3 +45,39 @@ ch = pulse_generator(timer, pin=pin, duty_cycle=0.5)
 #                       Digital to Analog Converter (DAC)                #
 #                                                                        #
 ##########################################################################
+
+POWER_MAX = 72.
+POWER_MIN = 65.
+LASER_VOLTAGE = 20.
+LASER_CURRENT = 3.6
+
+
+def sanitize_power_input(power):
+    """[summary]
+    
+    Arguments:
+        power {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
+
+    # check lower and upper bound for the power
+    if (power >= POWER_MIN) and (power <= POWER_MAX):
+        return power 
+
+    else:
+        print('Input out of range. Setting the power to allowed minimum value of {}'.format(POWER_MIN))
+        return POWER_MIN
+
+power = sanitize_power_input(50)
+
+current = power / LASER_VOLTAGE
+
+dac_value = int((current / LASER_CURRENT) * 4095)
+
+dac_pin = init_pin('A5', mode=pyb.Pin.ANALOG)
+
+dac = pyb.DAC(dac_pin, bits=12)
+
+dac.write(dac_value)

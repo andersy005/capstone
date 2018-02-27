@@ -64,20 +64,49 @@ def sanitize_power_input(power):
 
     # check lower and upper bound for the power
     if (power >= POWER_MIN) and (power <= POWER_MAX):
-        return power 
+        return float(power)
 
     else:
         print('Input out of range. Setting the power to allowed minimum value of {}'.format(POWER_MIN))
-        return POWER_MIN
+        return float(POWER_MIN)
 
-power = sanitize_power_input(50)
 
-current = power / LASER_VOLTAGE
+power = sanitize_power_input(70)
+print('Power = {} W'.format(power))
 
-dac_value = int((current / LASER_CURRENT) * 4095)
 
-dac_pin = init_pin('A5', mode=pyb.Pin.ANALOG)
+def create_dac(power, dac_pin):
+    """[summary]
+    
+    Arguments:
+        power {[type]} -- [description]
+        dac_pin {[type]} -- [description]
+    """
 
-dac = pyb.DAC(dac_pin, bits=12)
+    current = power / LASER_VOLTAGE
+    dac_value = int((current / LASER_CURRENT) * 4095)
+    print(dac_pin)
+    print(current, dac_value)
+    dac = pyb.DAC(dac_pin, bits=12)
+    dac.write(dac_value)
 
-dac.write(dac_value)
+
+def set_laser_voltage(dac_pin):
+    """[summary]
+    
+    Arguments:
+        dac_pin {[type]} -- [description]
+    """
+
+    volt = LASER_VOLTAGE / 10.
+    dac_value = int(volt / 3. * 4095)
+    print(dac_pin)
+    print(volt, dac_value)
+    dac = pyb.DAC(dac_pin, bits=12)
+    dac.write(dac_value)
+
+dac_pin1 = init_pin('A5', mode=pyb.Pin.ANALOG)
+dac_pin2 = init_pin('A4', mode=pyb.Pin.ANALOG)
+
+create_dac(power, dac_pin1)
+set_laser_voltage(dac_pin2)

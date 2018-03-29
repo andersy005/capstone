@@ -3,9 +3,8 @@ import sys
 from serial_port import SerialPort
 
 TEST = [
-    [1, 2, 3],
-    {'a': 11, 'b': 22, 'c':33},
-    {'d': 'This is a test'},
+   {'duty_cycle': 0.8}, {'duty_cycle': 0.7}
+   #[0.8, 10], [0.5, 20]
 ]
 
 
@@ -20,6 +19,7 @@ def test(serial_port, show_packets):
                 obj = jpkt.process_byte(byte)
                 if obj is not None:
                     print('   Rcvd', obj)
+                    
                     break
 
 

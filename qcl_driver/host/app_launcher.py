@@ -8,12 +8,17 @@ class QCLGUI(QtGui.QWidget):
 
         super(QCLGUI, self).__init__()
         self.setupGUI()
+        self.plotter()
 
     def setupGUI(self):
         self.layout = QtGui.QVBoxLayout()
         self.setWindowIcon(QtGui.QIcon('qcl.png'))
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
+
+    def plotter(self):
+        self.p = pg.plot()
+        self.p.plot(x=[0, 1, 2, 4], y=[4, 5, 9, 6])
 
 
 

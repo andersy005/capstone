@@ -3,8 +3,9 @@ import sys
 from serial_port import SerialPort
 
 TEST = [
-   {'duty_cycle': 0.8}, {'duty_cycle': 0.7}
-   #[0.8, 10], [0.5, 20]
+   {'duty_cycle': 0.8, 'QCL current': 2, 'compliance voltage': 15},
+   {'duty_cycle': 0.4, 'QCL current': 2.5, 'compliance voltage': 18}
+   
 ]
 
 

@@ -17,11 +17,33 @@ class PulseGenerator:
         elif type(timer) == pyb.Timer:
             self.timer = timer 
         
-        self.pulse_width = int(self.timer.period() * self.duty_cycle)
 
     def set(self):
+        self.pulse_width = int(self.timer.period() * self.duty_cycle)
         self.ch = self.timer.channel(self.channel, pyb.Timer.PWM, pin=self.pin)
         self.ch.pulse_width(self.pulse_width)
+
+def shutdown():
+    pass 
+
+
+def feedback_loop(qcl_current, shunt_resistor=0.05, gain=10, vref=3.):
+    vf = qcl_current * shunt_resistor
+    adc_value = vf/vref * 4095
+    measured_current = adc_value/2047 * qcl_current
+
+    if not is_safe(qcl_current=qcl_current, measured_current=measured_current):
+        shutdown()
+
+
+
+def is_safe(qcl_current=qcl_current, measured_current=measured_current, tolerance=0.1):
+    if measured_current >= qcl_current-tolerance and measured_current <= qcl_current+tolerance:
+        return True
+
+    else:
+        return False 
+
 
 
 

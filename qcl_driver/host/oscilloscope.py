@@ -103,6 +103,6 @@ class GenericPlot(BasePlot):
 
 
 if __name__ == '__main__':
-    plot = SerialPlot('/dev/ttyACM1', 115200)
-    #plot = SocketClientPlot('localhost', 5000)
+    #plot = SerialPlot('/dev/ttyACM2', 115200)
+    plot = SocketClientPlot('localhost', 5000)
     plot.start()

@@ -24,12 +24,13 @@ def main(serial_port):
             	duty = obj['duty']
                 freq = obj['frequency']
                 current = obj['current']
-                
-		pg.duty_cycle = duty
-		pg.timer.freq(freq)
-		pg.set()
-		control.current_setting(current)
-                jpkt.send(current)
+                volt = obj['voltage']
+                        
+                pg.duty_cycle = duty
+                pg.timer.freq(freq)
+                pg.set()
+                control.current_setting(volt)
+                jpkt.send(volt)
                
 	
 

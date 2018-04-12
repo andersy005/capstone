@@ -34,20 +34,20 @@ class QCLAPP(QtGui.QWidget):
             'group',
             'children': [
                 {
-                    'name': 'Current',
+                    'name': 'Power',
                     'type': 'float',
                     'value': 0.0,
                     'step': 1e-1,
-                    'limits': [0.0, 3.0],
+                    'limits': [0.0, None],
                     'siPrefix': True,
-                    'suffix': 'A'
+                    'suffix': 'W'
                 },
                 {
                     'name': 'Voltage',
                     'type': 'float',
-                    'value': 0.0,
+                    'value': 1.0,
                     'step': 1e-1,
-                    'limits': [0.0, 3.0],
+                    'limits': [0.01, None],
                     'siPrefix': True,
                     'suffix': 'V'
                 },
@@ -97,11 +97,12 @@ class QCLAPP(QtGui.QWidget):
 
     
     def send_params(self, show_packets=False):
-
+        
+        current = self.p.param('Current Setting parameters Options')['Power'] / self.p.param('Current Setting parameters Options')['Voltage']
         params = {'frequency': self.p.param('Pulse Width Modulation Options')['Frequency'],
                    'duty': self.p.param('Pulse Width Modulation Options')['Duty Cycle'] / 100.,
-                   'current': self.p.param('Current Setting parameters Options')['Current'],
-                   'voltage': self.p.param('Current Setting parameters Options')['Voltage']}
+                   'current': current,
+                   'voltage': self.p.param('Current Setting parameters Options')['Voltage'] }
 
         self.jpkt = JSON_Packet(self.serial_port, show_packets=False)
         print('Sending', params)

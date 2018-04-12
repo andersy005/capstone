@@ -70,17 +70,15 @@ class Controller:
         self.shunt_resistor = shunt_resistor
         self.dac = pyb.DAC(self.pin, bits=12)
 
-    def current_setting(self, current):
+    def current_setting(self, volt):
         """Set the QCL current
         
         Arguments:
             current {[float]} -- QCL current value
         """
-
-        self.current = current
-        volt = self.current / self.currentmax * self.vmax
-        dac_value = int(volt / self.vref * 4095)
-        self.dac.write(dac_value)
+        self.volt = volt / self.amp_gain
+        self.dac_value = int(self.volt / self.vref * 4095)
+        self.dac.write(self.dac_value)
 
     def shutdown(self):
         """Safety function to shutdown the QCL if the settings are out of bounds

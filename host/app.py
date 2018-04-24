@@ -97,12 +97,12 @@ class QCLAPP(QtGui.QWidget):
 
     
     def send_params(self, show_packets=False):
-        
+        voltage =  (self.p.param('Current Setting parameters Options')['Voltage'] - 0.2387 ) / .878
         current = self.p.param('Current Setting parameters Options')['Power'] / self.p.param('Current Setting parameters Options')['Voltage']
         params = {'frequency': self.p.param('Pulse Width Modulation Options')['Frequency'],
                    'duty': self.p.param('Pulse Width Modulation Options')['Duty Cycle'] / 100.,
                    'current': current,
-                   'voltage': self.p.param('Current Setting parameters Options')['Voltage'] }
+                   'voltage': voltage }
 
         self.jpkt = JSON_Packet(self.serial_port, show_packets=False)
         print('Sending', params)
@@ -120,7 +120,7 @@ class QCLAPP(QtGui.QWidget):
 
 if __name__ == '__main__':
 
-    sp = SerialPort(port='/dev/ttyACM1')
+    sp = SerialPort(port=None)
     pg.mkQApp()
     win = QCLAPP(serial_port=sp)
     win.show()

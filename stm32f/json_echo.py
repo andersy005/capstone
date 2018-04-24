@@ -20,7 +20,6 @@ def main(serial_port):
         if byte is not None:
             obj = jpkt.process_byte(byte)
             if obj is not None:
-		        # Retrieve duty_cycle and generate a pulse modulated signal
             	duty = obj['duty']
                 freq = obj['frequency']
                 current = obj['current']
@@ -30,7 +29,7 @@ def main(serial_port):
                 pg.timer.freq(freq)
                 pg.set()
                 control.current_setting(volt)
-                read_current = control.read_current()
+                read_current = control.feedback_loop()
                 jpkt.send(read_current)
                
 	

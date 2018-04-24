@@ -43,12 +43,12 @@ class PulseGenerator:
 
 class Controller:
     def __init__(self,
-                 pin_dac='A4',
-                 pin_adc='C1'
+                 pin='A4',
+                 pin_adc='C1',
                  currentmax=3.0,
                  vmax=1.5,
                  vref=2.96,
-                 amp_gain=11.236,
+                 amp_gain=10,
                  shunt_resistor=0.05):
 	
         """Class for different settings of QCL driver.
@@ -67,11 +67,11 @@ class Controller:
         self.vmax = vmax
         self.vref = vref
         self.pin = pyb.Pin(pin)
+        self.pin_adc = pyb.Pin(pin_adc)
         self.amp_gain = amp_gain
         self.shunt_resistor = shunt_resistor
-        self.dac = pyb.DAC(self.pin_dac, bits=12)
+        self.dac = pyb.DAC(self.pin, bits=12)
         self.adc = pyb.ADC(self.pin_adc)
-
 
     def current_setting(self, volt):
         """Set the QCL current
@@ -83,11 +83,6 @@ class Controller:
         self.dac_value = int(self.volt / self.vref * 4095)
         self.dac.write(self.dac_value)
 
-    def read_current(self):
-        self.current_read = (self.adc.read() / self.amp_gain) / (self.shunt_resistor)
-        return self.current_read
-        
-
     def shutdown(self):
         """Safety function to shutdown the QCL if the settings are out of bounds
         """
@@ -98,7 +93,9 @@ class Controller:
         """Implements feedback-loop safety procedure
         """
 
-        pass
+        self.read_value = (self.adc.read() / 4095) * self.vref
+        self.current_read = (self.read_value / 11.2336) / self.shunt_resistor
+        return self.current_read
 
     def is_safe(self):
         """Checks if the settings are in range. If out of bounds, calls shutdown()

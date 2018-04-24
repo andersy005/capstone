@@ -120,7 +120,7 @@ class QCLAPP(QtGui.QWidget):
 
 if __name__ == '__main__':
 
-    sp = SerialPort(port=None)
+    sp = SerialPort(port='/dev/ttyACM1')
     pg.mkQApp()
     win = QCLAPP(serial_port=sp)
     win.show()

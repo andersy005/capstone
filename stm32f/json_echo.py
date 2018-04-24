@@ -30,7 +30,8 @@ def main(serial_port):
                 pg.timer.freq(freq)
                 pg.set()
                 control.current_setting(volt)
-                jpkt.send(volt)
+                read_current = control.read_current()
+                jpkt.send(read_current)
                
 	
 

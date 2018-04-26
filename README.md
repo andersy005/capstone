@@ -2,6 +2,8 @@
 
 ## Installing MicroPython on STM32F4-Discovery
 
+![](https://i.imgur.com/inINue8.jpg)
+
 **Software needed on the host (Ubuntu)**
 
 To compile Micro Python, the `arm-none-eabi` cross-compiler is needed. On newer Ubuntu versions this could be easily installed through apt:

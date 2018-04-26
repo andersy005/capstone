@@ -14,7 +14,6 @@ class QCLAPP(QtGui.QWidget):
         super(QCLAPP, self).__init__()
         self.serial_port = serial_port
         self.setupGUI()
-        
         self.p.param('Set Parameters').sigActivated.connect(self.send_params)
 
 
@@ -98,8 +97,8 @@ class QCLAPP(QtGui.QWidget):
     
     def send_params(self, show_packets=False):
         
-        voltage = (self.p.param('Current Setting parameters Options')['Voltage'] - 0.2383) / (0.878)
-        #voltage = self.p.param('Current Setting parameters Options')['Voltage']
+        #voltage = (self.p.param('Current Setting parameters Options')['Voltage'] - 0.2383) / (0.878)
+        voltage = self.p.param('Current Setting parameters Options')['Voltage']
         current = self.p.param('Current Setting parameters Options')['Power'] / self.p.param('Current Setting parameters Options')['Voltage']
         params = {'frequency': self.p.param('Pulse Width Modulation Options')['Frequency'],
                    'duty': self.p.param('Pulse Width Modulation Options')['Duty Cycle'] / 100.,
